@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { Virtuoso } from 'react-virtuoso';
 import type { Country } from '../../types';
 import { CountryCard } from '../country-card/country-card';
 import { getPopulationForYear, createYearDataMap } from '../../utils/data-transformers';
@@ -45,14 +46,17 @@ export const CountryList = ({
 
   return (
     <div className={styles.countryList}>
-      {filteredCountries.map((country) => (
-        <CountryCard
-          key={country.id}
-          country={country}
-          selectedYear={selectedYear}
-          selectedColumns={selectedColumns}
-        />
-      ))}
+      <Virtuoso
+        style={{ height: window.innerHeight - 300 }}
+        data={filteredCountries}
+        itemContent={(_, country) => (
+          <CountryCard
+            country={country}
+            selectedYear={selectedYear}
+            selectedColumns={selectedColumns}
+          />
+        )}
+      />
     </div>
   );
 };
