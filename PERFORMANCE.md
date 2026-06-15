@@ -9,6 +9,18 @@
 | Search | 23.5ms | Full list re-rendered on every keystroke |
 | Toggle columns | 23ms | YearSelector re-rendered unnecessarily |
 
+### Sorting
+![Baseline Sorting](docs/screenshots/baseline-sorting.jpg)
+
+### Year Change
+![Baseline Year Change](docs/screenshots/baseline-year-change.jpg)
+
+### Search
+![Baseline Search](docs/screenshots/baseline-search.jpg)
+
+### Toggle Columns
+![Baseline Columns](docs/screenshots/baseline-columns.jpg)
+
 ### Observations
 - Every interaction caused full re-render of all CountryCard components
 - `filteredCountries` was recalculated on every render
@@ -48,9 +60,21 @@ Only visible country cards are mounted in the DOM instead of all ~300.
 | Interaction | Render Duration | Improvement |
 |---|---|---|
 | Sorting | 23.3ms | **-80%** (was 114.7ms) |
-| Year change | 42.9ms | **-0%** (YearSelector heavy first render) |
+| Year change | 42.9ms | **~same** (YearSelector heavy first render) |
 | Search | 4.6ms | **-80%** (was 23.5ms) |
 | Toggle columns | 14ms | **-39%** (was 23ms) |
+
+### Sorting
+![Optimized Sorting](docs/screenshots/optimized-sorting.jpg)
+
+### Year Change
+![Optimized Year Change](docs/screenshots/optimized-year-change.jpg)
+
+### Search
+![Optimized Search](docs/screenshots/optimized-search.jpg)
+
+### Toggle Columns
+![Optimized Columns](docs/screenshots/optimized-columns.jpg)
 
 ### Observations
 - `YearSelector` is now striped (grey) in flame chart = skipped re-render in most cases
