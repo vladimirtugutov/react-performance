@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import styles from './column-modal.module.css';
 
 type ColumnModalProps = {
@@ -8,16 +9,14 @@ type ColumnModalProps = {
   onClose: () => void;
 };
 
-export const ColumnModal = ({
+export const ColumnModal = memo(({
   isOpen,
   availableColumns,
   selectedColumns,
   onToggle,
   onClose,
 }: ColumnModalProps) => {
-  if (!isOpen) {
-    return null;
-  }
+  if (!isOpen) return null;
 
   return (
     <div className={styles.overlay}>
@@ -46,4 +45,6 @@ export const ColumnModal = ({
       </div>
     </div>
   );
-};
+});
+
+ColumnModal.displayName = 'ColumnModal';
