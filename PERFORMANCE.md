@@ -4,22 +4,22 @@
 
 | Interaction | Render Duration | Notes |
 |---|---|---|
-| Sorting | 114.7ms | CountryList 93.6ms, all cards re-rendered |
-| Year change | 27.7ms | YearSelector + CountryList re-rendered |
-| Search | 23.5ms | Full list re-rendered on every keystroke |
-| Toggle columns | 23ms | YearSelector re-rendered unnecessarily |
-
-### Sorting
-![Baseline Sorting](docs/screenshots/baseline-sorting.jpg)
-
-### Year Change
-![Baseline Year Change](docs/screenshots/baseline-year-change.jpg)
+| Search | 116.9ms | CountryList 83.2ms, all cards re-rendered |
+| Year change | ~285ms | CountryList ~255ms, all cards re-rendered on every change |
+| Sorting | 42.3ms | YearSelector 21.6ms + full list re-sorted and re-rendered |
+| Toggle columns | 53ms | YearSelector 24.8ms re-rendered unnecessarily |
 
 ### Search
-![Baseline Search](docs/screenshots/baseline-search.jpg)
+![Baseline Search](docs/screenshots/baseline-search.png)
+
+### Year Change
+![Baseline Year Change](docs/screenshots/baseline-year-change.png)
+
+### Sorting
+![Baseline Sorting](docs/screenshots/baseline-sorting.png)
 
 ### Toggle Columns
-![Baseline Columns](docs/screenshots/baseline-columns.jpg)
+![Baseline Columns](docs/screenshots/baseline-columns.png)
 
 ### Observations
 - Every interaction caused full re-render of all CountryCard components
@@ -57,27 +57,28 @@ Only visible country cards are mounted in the DOM instead of all ~300.
 
 ## Final Results (After Optimization)
 
-| Interaction | Render Duration | Improvement |
-|---|---|---|
-| Sorting | 23.3ms | **-80%** (was 114.7ms) |
-| Year change | 42.9ms | **~same** (YearSelector heavy first render) |
-| Search | 4.6ms | **-80%** (was 23.5ms) |
-| Toggle columns | 14ms | **-39%** (was 23ms) |
-
-### Sorting
-![Optimized Sorting](docs/screenshots/optimized-sorting.jpg)
-
-### Year Change
-![Optimized Year Change](docs/screenshots/optimized-year-change.jpg)
+| Interaction | Baseline | Optimized | Improvement |
+|---|---|---|---|
+| Search | 116.9ms | 16.4ms | **-86%** |
+| Year change | ~285ms | ~82ms | **-71%** |
+| Sorting | 42.3ms | 4.4ms | **-90%** |
+| Toggle columns | 53ms | 16.3ms | **-69%** |
 
 ### Search
-![Optimized Search](docs/screenshots/optimized-search.jpg)
+![Optimized Search](docs/screenshots/optimized-search.png)
+
+### Year Change
+![Optimized Year Change](docs/screenshots/optimized-year-change.png)
+
+### Sorting
+![Optimized Sorting](docs/screenshots/optimized-sorting.png)
 
 ### Toggle Columns
-![Optimized Columns](docs/screenshots/optimized-columns.jpg)
+![Optimized Columns](docs/screenshots/optimized-columns.png)
 
 ### Observations
 - `YearSelector` is now striped (grey) in flame chart = skipped re-render in most cases
-- `CountryList` renders only visible items via virtualization
+- `CountryList` renders only visible items via virtualization — only ~10 cards in DOM instead of ~300
 - `CountryCard` components are memoized and skip re-renders when props unchanged
-- Search is now the fastest interaction at 4.6ms
+- Year change improved by 71% due to virtualization rendering only visible cards
+- Sorting improved by 90% due to `useMemo` on `filteredCountries`
