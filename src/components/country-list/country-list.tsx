@@ -17,6 +17,8 @@ type CountryListProps = {
   onYearChange: (year: number) => void;
 };
 
+const VIRTUOSO_HEIGHT = window.innerHeight - 300;
+
 export const CountryList = ({
   countries,
   searchQuery,
@@ -47,7 +49,7 @@ export const CountryList = ({
   return (
     <div className={styles.countryList}>
       <Virtuoso
-        style={{ height: window.innerHeight - 300 }}
+        style={{ height: VIRTUOSO_HEIGHT }}
         data={filteredCountries}
         itemContent={(_, country) => (
           <CountryCard
