@@ -19,9 +19,9 @@ export const YearSelector = memo(({ year, years, onChange }: YearSelectorProps) 
         onChange={(e) => onChange(Number(e.target.value))}
         className={styles.select}
       >
-        {years.map((y) => (
-          <option key={y} value={y}>
-            {y}
+        {years.map((availableYear) => (
+          <option key={availableYear} value={availableYear}>
+            {availableYear}
           </option>
         ))}
       </select>
